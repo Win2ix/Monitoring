@@ -4,7 +4,7 @@
 # Copyright 2013 Sujith Jose <sjose@win2ix.ca> http://www.win2ix.ca
 # version = '0.1';
 
-#begin GPL
+#Begin GPL
 #    This file is part of checkshorewall.
 #
 #    checkshorewall is free software: you can redistribute it and/or modify
@@ -18,9 +18,9 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with checkshorewall.  If not, see <http://www.gnu.org/licenses/>.
-#end GPL
+#End GPL
 
-# Plugin for check_mk to check if shorewall is running or not.
+# Plugin for check_mk to check if shorewall is running.
 # Please make sure to put this file under /usr/lib/check_mk_agent/local/ of the agent server. 
 
 SHOREWALL="/sbin/shorewall"
