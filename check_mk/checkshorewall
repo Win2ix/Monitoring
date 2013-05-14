@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# checkshorewall 
+# Copyright 2013 Sujith Jose <sjose@win2ix.ca> http://www.win2ix.ca
+# version = '0.1';
+
+#begin GPL
+#    This file is part of checkshorewall.
+#
+#    checkshorewall is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, version 3 of the License.
+#
+#    checkshorewall is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with checkshorewall.  If not, see <http://www.gnu.org/licenses/>.
+#end GPL
+
+# Plugin for check_mk to check if shorewall is running or not.
+# Please make sure to put this file under /usr/lib/check_mk_agent/local/ of the agent server. 
+
+SHOREWALL="/sbin/shorewall"
+
+STATELINE=`$SHOREWALL status | grep State:`
+STATE=`echo $STATELINE | awk '{print $1}' | cut -d ':' -f 2`
+
+case "$STATE" in
+        Started)
+                        status=0
+                        statustxt=OK
+                        ;;
+        Stopped)
+                        status=2
+                        statustxt=CRITICAL
+                        ;;
+        *)
+                        status=2
+                        statustxt=CRITICAL
+                        ;;
+esac
+
+echo "$status shorewall_status - $statustxt shorewall status is $statustxt 

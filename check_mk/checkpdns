@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# checkpdns 
+# Copyright 2013 Sujith Jose <sjose@win2ix.ca> http://www.win2ix.ca
+# version = '0.1';
+
+#begin GPL
+#    This file is part of checkpdns.
+#
+#    checkpdns is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, version 3 of the License.
+#
+#    checkpdns is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with checkpdns.  If not, see <http://www.gnu.org/licenses/>.
+#end GPL
+
+# Plugin for check_mk to check if the pdns is running or not.
+# Please make sure to place this file/plugin under /usr/lib/check_mk_agent/local/ on your pdns servers. 
+# Also please make sure that you are successfully able to run the commands pdns_control rping and pdns_control rediscover from your servers. 
+
+PING=$(pdns_control rping)
+REDISCOVER=$(pdns_control rediscover)
+GDIS=$(echo $REDISCOVER | awk '{print $5$6}' | sed  's/,//')
+GRDIS=$(echo $REDISCOVER | awk '{print $9$10}')
+
+if [ "$PING" = PONG ]; then
+        if  [[ "$REDISCOVER" == *0\ rejected*  &&  "$REDISCOVER" == *0\ removed* ]]; then
+                status=0
+                statustxt=OK
+
+        else
+                status=2
+                statustxt=CRITICAL
+        fi
+echo "$status pdns_running_status - $statustxt PDNS is working fine with  status $PING ,the parser is $statustxt $GRDIS $GDIS"
+else
+status=2
+statustxt=CRITICAL
+echo "$status pdns_running_status - $statustxt PDNS is not running with output $PING"
+fi
