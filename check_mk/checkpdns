@@ -4,7 +4,7 @@
 # Copyright 2013 Sujith Jose <sjose@win2ix.ca> http://www.win2ix.ca
 # version = '0.1';
 
-#begin GPL
+#Begin GPL
 #    This file is part of checkpdns.
 #
 #    checkpdns is free software: you can redistribute it and/or modify
@@ -18,9 +18,9 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with checkpdns.  If not, see <http://www.gnu.org/licenses/>.
-#end GPL
+#End GPL
 
-# Plugin for check_mk to check if the pdns is running or not.
+# Plugin for check_mk to check if the powerdns is running.
 # Please make sure to place this file/plugin under /usr/lib/check_mk_agent/local/ on your pdns servers. 
 # Also please make sure that you are successfully able to run the commands pdns_control rping and pdns_control rediscover from your servers. 
 
