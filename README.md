@@ -9,5 +9,7 @@ We at Win2ix have created easy/short custom plugins for check_mk.
 
 * shorewall plugin for check_mk
 * powerdns plugin for check_mk
+* elasticsearch plugin for check_mk
+* logstash plugin for check_mk
 
 Please contact Win2ix Systems if you have any questions or for any modifications. 
