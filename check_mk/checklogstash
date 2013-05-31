@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# checklogstash 
+# Copyright 2013 Sujith Jose <sjose@win2ix.ca> http://www.win2ix.ca
+# version = '0.1';
+
+#Begin GPL
+#    This file is part of checklogstash.
+#
+#    checklogstash is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, version 3 of the License.
+#
+#    checklogstash is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with checklogstash.  If not, see <http://www.gnu.org/licenses/>.
+#End GPL
+
+# Plugin to monitor if logstash is running  
+
+line=$(ps aux | grep logstash | grep -v grep | grep -v $0)
+if [ -z "$line" ]
+then
+    LOGSTATE="Not_Running"
+else
+    LOGSTATE="Running"
+fi
+
+case "$LOGSTATE" in
+        Running)
+                        status=0
+                        statustxt=OK
+                        ;;
+        Not_Running)
+                        status=2
+                        statustxt=CRITICAL
+                        ;;
+        *)
+                        status=2
+                        statustxt=CRITICAL
+                        ;;
+esac
+
+echo "$status logstash_status - $statustxt logstash status is $statustxt "
